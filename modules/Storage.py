@@ -1,4 +1,5 @@
 import json
+import os
 from json import JSONDecodeError
 
 
@@ -18,7 +19,11 @@ class Storage:
         self.path = path
         self.data_template = data_template
         self.file_name = file_name
-        self.full_path = path + file_name
+        self.full_path = os.path.join(path, file_name)
+        self.initialized = True
+
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
 
         try:
             self.read()
