@@ -14,6 +14,7 @@ class Storage:
     def __init__(self, path, data_template, file_name="storage.json"):
         if hasattr(self, 'initialized') and self.initialized:
             return
+
         self.data = None
         self.file = None
         self.path = path
