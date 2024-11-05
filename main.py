@@ -1,5 +1,6 @@
 from modules.Storage import Storage
 from modules.storage_template import storage as storage_template
+from modules.NoteBuilder import NoteBuilder
 
 # Инициализируем хранилище
 # storage_template - это структура объекта хранилища
@@ -24,11 +25,16 @@ def init():
     # По идее нам нужно реализовать класс, который будет управлять заметками
     # А также, он должен уметь выдавать подобный объект, как ниже,
     # Чтобы можно было сохранить заметку в JSON формате
-    note = {
-        "name": f"Название заметки {len(STORAGE.data["notes"]) + 1}",
-        "tags": ["Манты", "Пельмени"],
-        "text": "Это супер текст самой заметки"
-    }
+    # Builder pattern для создания заметок
+    builder = NoteBuilder()
+    note = (
+        builder
+        .set_name(f"Название заметки {len(STORAGE.data['notes']) + 1}")
+        .add_tag("Манты")
+        .add_tag("Пельмени")
+        .set_text("Это супер текст самой заметки")
+        .build()
+    )
     STORAGE.data["notes"].append(note)  # Добавляем нашу новую заметку
     STORAGE.write()  # Сохраняем изменения
 
