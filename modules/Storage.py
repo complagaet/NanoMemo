@@ -1,7 +1,7 @@
 import json
 import os
 from json import JSONDecodeError
-
+from modules.observer import Observer
 
 class Storage:
     _instance = None
@@ -21,6 +21,7 @@ class Storage:
         self.data_template = data_template
         self.file_name = file_name
         self.full_path = os.path.join(path, file_name)
+        self.observers = []
         self.initialized = True
 
         if not os.path.exists(self.path):
@@ -36,7 +37,15 @@ class Storage:
         except FileNotFoundError:
             self.data = data_template
             self.write()
+    def register_observer(self, observer: Observer):
+        self.observers.append(observer)
 
+    def unregister_observer(self, observer: Observer):
+        self.observers.remove(observer)
+
+    def notify_observers(self):
+        for observer in self.observers:
+            observer.update(self.data)
     def read(self):
         self.file = open(self.full_path, 'r+')
         self.data = json.loads(self.file.read())
