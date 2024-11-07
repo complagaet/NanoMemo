@@ -1,3 +1,4 @@
+# Builder pattern
 class NoteBuilder:
     def __init__(self):
         self._name = ""
@@ -8,10 +9,9 @@ class NoteBuilder:
         self._name = name
         return self
 
-    def add_tag(self, tag):
-        self._tags.append(tag)
+    def add_tag(self, *tags):
+        self._tags.extend(str(tag) for tag in tags)
         return self
-
     def set_text(self, text):
         self._text = text
         return self

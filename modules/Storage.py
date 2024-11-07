@@ -2,7 +2,7 @@ import json
 import os
 from json import JSONDecodeError
 from modules.observer import Observer
-
+#Singleton. Model in MVC(Model-View-Controller)
 class Storage:
     _instance = None
 

@@ -1,5 +1,4 @@
 from modules.observer import Observer
-
 class NoteDisplay(Observer):
     def update(self, data):
         notes = data.get("notes", [])
@@ -10,3 +9,4 @@ class NoteDisplay(Observer):
             print(f"Теги: {', '.join(note['tags'])}")
             print("->")
             print(note['text'].strip())
+# observer pattern: observer+NoteDisplay. View in MVC(Model-View-Controller)
