@@ -66,3 +66,11 @@ class Storage:
     def reset(self):
         self.data = self.data_template
         self.write()
+
+    def set_username(self, username):
+        self.data["username"] = username
+        self.write()
+        self.notify_observers()
+
+    def get_username(self):
+        return self.data.get("username", "")

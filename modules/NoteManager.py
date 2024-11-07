@@ -21,6 +21,9 @@ class NoteManager:
         self.storage.write()
         print("Заметка добавлена!")
 
+    def set_username(self, username):
+        self.storage.set_username(username)
+        print(f"Username установлен на: {username}")
     def delete_note_by_name(self, name):
         notes = self.storage.data["notes"]
         self.storage.data["notes"] = [note for note in notes if note["name"] != name]
@@ -34,3 +37,11 @@ class NoteManager:
         print("Сбрасываем данные...")
         self.storage.reset()
         print("Все данные были сброшены!")
+
+    def get_username(self):
+        return self.storage.data.get("username", "")
+
+    def set_username(self, username):
+        self.storage.data["username"] = username
+        self.storage.write()
+        print(f"Имя пользователя установлено на: {username}")
